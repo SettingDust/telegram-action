@@ -1,11 +1,23 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Telegram Action'
+description: "Send sth. to telegram with Github Action"
+author: 'SettingDust'
 inputs:
-  milliseconds: # change this
+  chatId:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Get with @userinfobot'
+  botToken:
+    required: true
+    description: 'Get with @BotFather'
+  content:
+    description: 'Message content'
+  photoUrls:
+    description: 'Photo urls. Split with \n'
+  format:
+    description: 'Markdown, MarkdownV2, HTML'
+  disableWebPagePreview:
+    description: 'Disables link preview'
+  disableNotification:
+    description: 'Disables notification'
 runs:
   using: 'node12'
   main: 'dist/index.js'
