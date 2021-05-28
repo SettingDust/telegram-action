@@ -46,18 +46,19 @@ function run() {
             const chatId = core.getInput('chatId');
             const botToken = core.getInput('botToken');
             const content = core.getInput('content');
-            const photoUrls = core.getInput('photoUrls');
+            const photos = core.getInput('photos');
             const format = core.getInput('format') || 'Markdown';
             const disableWebPagePreview = core.getInput('disableWebPagePreview') === 'true' || false;
             const disableNotification = core.getInput('disableNotification') === 'true' || false;
             const bot = new node_telegram_bot_api_1.default(botToken);
-            if (photoUrls) {
-                bot.sendMediaGroup(chatId, photoUrls.split('\n').map((it, index) => ({
+            if (photos) {
+                const data = photos.split('\n').map(it => ({
                     type: 'photo',
                     media: it,
-                    caption: index === 0 ? content : undefined,
                     parse_mode: format
-                })), {
+                }));
+                data[0].caption = content;
+                bot.sendMediaGroup(chatId, data, {
                     disable_notification: disableNotification
                 });
             }

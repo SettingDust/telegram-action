@@ -1,12 +1,14 @@
 import * as core from '@actions/core'
+import * as path from 'path'
 import TelegramBot, {InputMediaPhoto, ParseMode} from 'node-telegram-bot-api'
+import {imageSize} from 'image-size'
 
 async function run(): Promise<void> {
   try {
     const chatId: string = core.getInput('chatId')
     const botToken: string = core.getInput('botToken')
     const content: string = core.getInput('content')
-    const photoUrls: string = core.getInput('photoUrls')
+    const photos: string = core.getInput('photos')
     const format: ParseMode =
       (core.getInput('format') as ParseMode) || 'Markdown'
     const disableWebPagePreview: boolean =
@@ -15,22 +17,24 @@ async function run(): Promise<void> {
       core.getInput('disableNotification') === 'true' || false
 
     const bot = new TelegramBot(botToken)
-    if (photoUrls) {
-      bot.sendMediaGroup(
-        chatId,
-        photoUrls.split('\n').map(
-          (it, index) =>
-            ({
-              type: 'photo',
-              media: it,
-              caption: index === 0 ? content : undefined,
-              parse_mode: format
-            } as InputMediaPhoto)
-        ),
-        {
-          disable_notification: disableNotification
-        }
-      )
+    console.log(`输入信息：\n${content}`)
+    if (photos) {
+      const photoArr = photos.split('⭐')
+      const data: InputMediaPhoto[] = []
+      for (const photo of photoArr) {
+        let dimension = imageSize(photo)
+        console.log(`输入图片：${photo}`)
+        console.log(`图片尺寸：${dimension.width} x ${dimension.height}`)
+        data.push({
+          type: 'photo',
+          media: path.resolve(photo),
+          parse_mode: format
+        })
+      }
+      data[0].caption = content
+      bot.sendMediaGroup(chatId, data, {
+        disable_notification: disableNotification
+      })
     } else if (content)
       bot.sendMessage(chatId, content, {
         parse_mode: format,

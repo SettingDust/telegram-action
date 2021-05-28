@@ -1,0 +1,33 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14.x
+    - name: Build & push
+      run: |
+        rm -rf ./dist \
+        && npm i \
+        && npm run build \
+        && npm run package \
+        && git config --local user.email "action@github.com" \
+        && git config --local user.name "GitHub Action" \
+        && git add -A && git commit -m 'Build and package' --allow-empty \
+        && git push -u origin HEAD
+    

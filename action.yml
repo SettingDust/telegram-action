@@ -10,8 +10,8 @@ inputs:
     description: 'Get with @BotFather'
   content:
     description: 'Message content'
-  photoUrls:
-    description: 'Photo urls. Split with \n'
+  photos:
+    description: 'Photo urls or paths. Split with \n'
   format:
     description: 'Markdown, MarkdownV2, HTML'
   disableWebPagePreview:
