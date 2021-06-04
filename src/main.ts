@@ -10,7 +10,7 @@ async function run(): Promise<void> {
     const content: string = core.getInput('content')
     const photos: string = core.getInput('photos')
     const format: ParseMode =
-      (core.getInput('format') as ParseMode) || 'Markdown'
+      (core.getInput('format') as ParseMode) || 'MarkdownV2'
     const disableWebPagePreview: boolean =
       core.getInput('disableWebPagePreview') === 'true' || false
     const disableNotification: boolean =
