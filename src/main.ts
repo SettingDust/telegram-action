@@ -17,14 +17,14 @@ async function run(): Promise<void> {
       core.getInput('disableNotification') === 'true' || false
 
     const bot = new TelegramBot(botToken)
-    console.log(`输入信息：\n${content}`)
+    core.info(`输入信息：\n${content}`)
     if (photos) {
       const photoArr = photos.split('⭐')
       const data: InputMediaPhoto[] = []
       for (const photo of photoArr) {
-        let dimension = imageSize(photo)
-        console.log(`输入图片：${photo}`)
-        console.log(`图片尺寸：${dimension.width} x ${dimension.height}`)
+        const dimension = imageSize(photo)
+        core.info(`输入图片：${photo}`)
+        core.info(`图片尺寸：${dimension.width} x ${dimension.height}`)
         data.push({
           type: 'photo',
           media: path.resolve(photo),
@@ -32,11 +32,11 @@ async function run(): Promise<void> {
         })
       }
       data[0].caption = content
-      bot.sendMediaGroup(chatId, data, {
+      await bot.sendMediaGroup(chatId, data, {
         disable_notification: disableNotification
       })
     } else if (content)
-      bot.sendMessage(chatId, content, {
+      await bot.sendMessage(chatId, content, {
         parse_mode: format,
         disable_notification: disableNotification,
         disable_web_page_preview: disableWebPagePreview

@@ -1102,15 +1102,15 @@ declare module 'node-telegram-bot-api' {
   class TelegramBot extends EventEmitter {
     constructor(token: string, options?: TelegramBot.ConstructorOptions)
 
-    startPolling(options?: TelegramBot.StartPollingOptions): Promise<any>
+    startPolling(options?: TelegramBot.StartPollingOptions): Promise<never>
 
-    stopPolling(options?: TelegramBot.StopPollingOptions): Promise<any>
+    stopPolling(options?: TelegramBot.StopPollingOptions): Promise<never>
 
     isPolling(): boolean
 
-    openWebHook(): Promise<any>
+    openWebHook(): Promise<never>
 
-    closeWebHook(): Promise<any>
+    closeWebHook(): Promise<never>
 
     hasOpenWebHook(): boolean
 
@@ -1123,7 +1123,7 @@ declare module 'node-telegram-bot-api' {
     setWebHook(
       url: string,
       options?: TelegramBot.SetWebHookOptions
-    ): Promise<any>
+    ): Promise<never>
 
     deleteWebHook(): Promise<boolean>
 
@@ -1143,7 +1143,7 @@ declare module 'node-telegram-bot-api' {
 
     answerInlineQuery(
       inlineQueryId: string,
-      results: ReadonlyArray<TelegramBot.InlineQueryResult>,
+      results: readonly TelegramBot.InlineQueryResult[],
       options?: TelegramBot.AnswerInlineQueryOptions
     ): Promise<boolean>
 
@@ -1193,14 +1193,14 @@ declare module 'node-telegram-bot-api' {
 
     sendMediaGroup(
       chatId: number | string,
-      media: ReadonlyArray<TelegramBot.InputMedia>,
+      media: readonly TelegramBot.InputMedia[],
       options?: TelegramBot.SendMediaGroupOptions
     ): Promise<TelegramBot.Message>
 
     sendPoll(
       chatId: number | string,
       question: string,
-      pollOptions: ReadonlyArray<string>,
+      pollOptions: readonly string[],
       options?: TelegramBot.SendPollOptions
     ): Promise<TelegramBot.Message>
 
@@ -1428,7 +1428,7 @@ declare module 'node-telegram-bot-api' {
       providerToken: string,
       startParameter: string,
       currency: string,
-      prices: ReadonlyArray<TelegramBot.LabeledPrice>,
+      prices: readonly TelegramBot.LabeledPrice[],
       options?: TelegramBot.SendInvoiceOptions
     ): Promise<TelegramBot.Message>
 
@@ -1871,7 +1871,7 @@ declare module 'node-telegram-bot-api' {
         | 'polling_error'
         | 'webhook_error'
         | 'error'
-    ): Array<(data: any, metadata?: TelegramBot.Metadata) => void>
+    ): ((data: any, metadata?: TelegramBot.Metadata) => void)[]
 
     rawListeners(
       event:
@@ -1893,9 +1893,9 @@ declare module 'node-telegram-bot-api' {
         | 'polling_error'
         | 'webhook_error'
         | 'error'
-    ): Array<(data: any, metadata?: TelegramBot.Metadata) => void>
+    ): ((data: any, metadata?: TelegramBot.Metadata) => void)[]
 
-    eventNames(): Array<
+    eventNames(): (
       | TelegramBot.MessageType
       | 'message'
       | 'callback_query'
@@ -1914,7 +1914,7 @@ declare module 'node-telegram-bot-api' {
       | 'polling_error'
       | 'webhook_error'
       | 'error'
-    >
+    )[]
 
     listenerCount(
       event:
