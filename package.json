@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Send sth. to telegram with Github Action",
   "main": "lib/main.js",
+  "packageManager": "yarn@3.2.1",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
@@ -23,19 +24,20 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.3.0",
-    "image-size": "^1.0.0",
-    "node-telegram-bot-api": "^0.53.0"
+    "@actions/core": "^1.9.0",
+    "image-size": "^1.0.1",
+    "node-telegram-bot-api": "^0.58.0"
   },
   "devDependencies": {
-    "@types/node": "^15.6.1",
-    "@types/request": "^2.48.5",
-    "@typescript-eslint/parser": "^4.25.0",
-    "@vercel/ncc": "^0.28.6",
-    "eslint": "^7.27.0",
-    "eslint-plugin-github": "^4.1.3",
+    "@types/node": "^18.0.0",
+    "@types/node-telegram-bot-api": "^0.57.1",
+    "@types/request": "^2.48.8",
+    "@typescript-eslint/parser": "^5.29.0",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.18.0",
+    "eslint-plugin-github": "^4.3.6",
     "js-yaml": "^4.1.0",
-    "prettier": "2.3.0",
-    "typescript": "^4.3.2"
+    "prettier": "2.7.1",
+    "typescript": "^4.7.4"
   }
 }
