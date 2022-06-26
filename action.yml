@@ -9,15 +9,27 @@ inputs:
     required: true
     description: 'Get with @BotFather'
   content:
+    required: false
     description: 'Message content'
-  photos:
+  medias:
+    required: false
     description: 'Photo urls or paths. Split with \n'
+  type:
+    required: false
+    description: 'document, photo, video'
+    default: document
   format:
+    required: false
     description: 'Markdown, MarkdownV2, HTML'
+    default: 'MarkdownV2'
   disableWebPagePreview:
+    required: false
     description: 'Disables link preview'
+    default: 'false'
   disableNotification:
+    required: false
     description: 'Disables notification'
+    default: 'false'
 runs:
   using: 'node12'
   main: 'dist/index.js'

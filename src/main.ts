@@ -1,13 +1,18 @@
 import * as core from '@actions/core'
 import * as path from 'path'
-import TelegramBot, {InputMediaPhoto, ParseMode} from 'node-telegram-bot-api'
+import TelegramBot, {
+  InputMedia,
+  InputMediaType,
+  ParseMode
+} from 'node-telegram-bot-api'
 import {imageSize} from 'image-size'
 
 try {
-  const chatId: string = core.getInput('chatId')
-  const botToken: string = core.getInput('botToken')
-  const content: string = core.getInput('content')
-  const photos: string = core.getInput('photos')
+  const chatId = core.getInput('chatId')
+  const botToken = core.getInput('botToken')
+  const content = core.getInput('content')
+  const medias = core.getInput('medias')
+  const type = core.getInput('type') as InputMediaType
   let format = core.getInput('format').trim() as ParseMode
   format = format?.length ? format : 'MarkdownV2'
   const disableWebPagePreview: boolean =
@@ -17,16 +22,16 @@ try {
 
   const bot = new TelegramBot(botToken)
   core.info(`输入信息：\n${content}`)
-  if (photos) {
-    const photoArr = photos.split('⭐')
-    const data: InputMediaPhoto[] = []
-    for (const photo of photoArr) {
-      const dimension = imageSize(photo)
-      core.info(`输入图片：${photo}`)
+  if (medias) {
+    const mediaArr = medias.split('\n')
+    const data: InputMedia[] = []
+    for (const media of mediaArr) {
+      const dimension = imageSize(media)
+      core.info(`输入图片：${media}`)
       core.info(`图片尺寸：${dimension.width} x ${dimension.height}`)
       data.push({
-        type: 'photo',
-        media: path.resolve(photo),
+        type,
+        media: path.resolve(media),
         parse_mode: format
       })
     }
