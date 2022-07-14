@@ -13,7 +13,7 @@ inputs:
     description: 'Message content'
   medias:
     required: false
-    description: 'Photo urls or paths. Split with \n'
+    description: 'Media urls or paths. Split with \n'
   type:
     required: false
     description: 'document, photo, video'

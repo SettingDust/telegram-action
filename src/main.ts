@@ -21,21 +21,21 @@ try {
     core.getInput('disableNotification') === 'true' || false
 
   const bot = new TelegramBot(botToken)
-  core.info(`输入信息：\n${content}`)
+  core.info(`Input: \n${content}`)
   if (medias) {
     const mediaArr = medias.split('\n')
     const data: InputMedia[] = []
     for (const media of mediaArr) {
       const dimension = imageSize(media)
-      core.info(`输入图片：${media}`)
-      core.info(`图片尺寸：${dimension.width} x ${dimension.height}`)
+      core.info(`Media: ${media}`)
+      core.info(`Dimension: ${dimension.width} x ${dimension.height}`)
       data.push({
         type,
         media: path.resolve(media),
         parse_mode: format
       })
     }
-    data[0].caption = content
+    data[data.length - 1].caption = content
     await bot.sendMediaGroup(chatId, data, {
       disable_notification: disableNotification
     })
