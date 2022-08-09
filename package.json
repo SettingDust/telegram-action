@@ -24,7 +24,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.9.0",
+    "@actions/core": "^1.9.1",
     "image-size": "^1.0.1",
     "node-telegram-bot-api": "^0.58.0"
   },
