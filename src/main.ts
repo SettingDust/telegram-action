@@ -1,10 +1,6 @@
 import * as core from '@actions/core'
 import * as path from 'path'
-import TelegramBot, {
-  InputMedia,
-  InputMediaType,
-  ParseMode
-} from 'node-telegram-bot-api'
+import TelegramBot, {InputMedia, InputMediaType, ParseMode} from 'node-telegram-bot-api'
 import {imageSize} from 'image-size'
 
 try {
@@ -41,6 +37,10 @@ try {
       await bot.sendMediaGroup(chatId, chunk, {
         disable_notification: disableNotification
       })
+      if (i < data.length) {
+        core.info(`Have to split to multiple chunks. Current: ${i}-${i+10}`)
+        await new Promise(r => setTimeout(r, 500))
+      }
     }
   } else if (content)
     await bot.sendMessage(chatId, content, {
