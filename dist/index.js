@@ -48,14 +48,16 @@ try {
         let lastDate;
         for (let i = 0; i < data.length; i += 10) {
             const chunk = data.slice(i, i + 10);
-            while (lastDate &&
-                lastDate.getTime() + 60 * 1e3 > new Date().getTime()) { }
+            // while (
+            //   lastDate &&
+            //   lastDate.getTime() + 60 * 1e3 > new Date().getTime()
+            // ) {}
             await bot.sendMediaGroup(chatId, chunk, {
                 disable_notification: disableNotification
             });
             lastDate = new Date();
             _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`[${new Date()}] Try to send ${chunk.length} photos`);
-            if (i < data.length) {
+            if (data.length > 10) {
                 _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Have to split to multiple chunks. Current: ${i}-${i + 9}`);
             }
         }
