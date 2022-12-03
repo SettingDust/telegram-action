@@ -36,9 +36,12 @@ try {
       })
     }
     data[data.length - 1].caption = content
-    await bot.sendMediaGroup(chatId, data, {
-      disable_notification: disableNotification
-    })
+    for (let i = 0; i < data.length; i += 10) {
+      const chunk = data.slice(i, i + 10)
+      await bot.sendMediaGroup(chatId, chunk, {
+        disable_notification: disableNotification
+      })
+    }
   } else if (content)
     await bot.sendMessage(chatId, content, {
       parse_mode: format,
