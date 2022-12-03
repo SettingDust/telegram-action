@@ -38,6 +38,7 @@ try {
     data[data.length - 1].caption = content
     for (let i = 0; i < data.length; i += 10) {
       const chunk = data.slice(i, i + 10)
+      core.info(`Try to send ${chunk.length} photos`)
       await bot.sendMediaGroup(chatId, chunk, {
         disable_notification: disableNotification
       })
